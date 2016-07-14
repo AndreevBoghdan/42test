@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Contacts{% endblock %}
+
+{% block content %}
+
+<div class="content">
+	{% if not person %}
+	<h2>Sorry, there is no info in DB...</h2>
+	{% else %}
+	<div id="left">
+		<p>{{ person.name }}</p>
+		<p>{{ person.last_name }}</p>
+		<p>{{ person.date }}</p>		
+		<p>Photo:</p>
+		
+		<p>
+		{% if person.photo %}
+            <img src="{{ MEDIA_URL }}{{ person.photo }}" alt="Photo" />
+        {% else %}	
+        	<img class='image' src="/static/images/default.png" alt="Photo" />
+        {% endif %}
+        </p>
+	</div>
+        
+	<div id="right">
+		<p>Contacts:</p>
+		<p>Email: {{ person.email }}</p>
+		<p>jubber: {{ person.jubber }}</p>
+		<p>Skype: {{ person.skype }}</p>
+		<p>Other contacts:</p>
+		<p>{{ person.other_contacts }}</p>
+		<p>Bio:</p>
+		<p>{{ person.bio }}</p>
+	</div>
+	{% endif%}
+<ul class="links">
+{% if user.is_authenticated %}
+    <li><a href="accounts/logout/">Logout</a></li>
+    <li><a href="/edit/">Edit</a>
+    {% if user.is_staff %}
+    	{% load edit_tag %}
+    <a href="{% edit_link person %}">(admin)</a>
+    {% endif %}
+    </li>
+{% else %}
+    <li><a href="/accounts/login/">Login</a></li>
+{% endif %}
+</ul>
+</div>
+<a href="/requests/">requests</a>
+
+{% endblock %}

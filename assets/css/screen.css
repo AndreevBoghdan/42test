@@ -1,0 +1,96 @@
+* { 
+ 	margin: 0; 
+ 	padding: 0;
+ 	font-size: 14px;
+	padding: 2px;
+	font-family: Georgia,serif;
+	line-height: 19px;
+  }
+
+body {
+	padding: 0px 15px;
+}
+
+#title{
+	font-size: 22px;
+	font-family: Georgia,serif;
+	line-height: 26px;
+	font-weight: normal;
+}
+
+.links{
+
+	list-style-type: none;
+}
+
+.content{
+	border-bottom: 2px solid black;
+	padding-left: 30px;
+	position: relative;
+	overflow: hidden;
+	min-height: 250px;
+	height: 100%;
+	width: 725px;
+}
+
+#picture a {
+	display: none;
+}
+#picture label {
+	display: inline;
+}
+
+textarea {
+    max-height: 150px; 
+    resize: none; 
+   } 
+
+.image {
+	max-width: 200px;
+	max-height: 200px;
+}
+
+.loginPage input, label{
+	display: block;
+}
+.loginPage .button {
+	margin-top: 5px;
+}
+
+li input {
+	max-width: 30px;
+}
+
+#left { 
+	margin-left: 5px;
+	float:left;
+	width: 220px; 
+}
+#right { 	
+	width: 345px; 
+	float:left;
+}
+.content form{
+		float:left;
+}
+
+.new{
+	color: green;
+}
+
+h2{
+	font-weight: normal;
+}
+
+
+#ajaxwrapper{
+	overflow: hidden;
+}
+
+.pagination li{
+	display: inline;
+}
+.error{
+	color: green;
+}
+

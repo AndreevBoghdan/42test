@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+	0 new request paths on
+{% endblock title %}
+
+{% block extra_head %}
+<script src="{% static 'js/underscore-min.js' %}"></script>
+<script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/date.format.js' %}"></script>
+
+{% endblock extra_head %}
+
+{% block content %}
+
+<div class="content">
+	<div id="right">
+        <script src="{% static 'js/requests.js' %}"></script>
+        <h2 id="request-count">You have got 0 new requests</h2>    
+        {% for visit in http_requests %}
+	
+	<p class="request-simple">{{ visit.pk }}. [{{ visit.date |date:"Y/N/d"}}, {{ visit.date|time:"H:i:s" }}] "{{ visit.path }} {{ visit.meth }}" {{ visit.status_code }}"</p>
+
+		{%endfor%} 
+    </div>
+
+
+<ul class="links">
+    <li>
+    <a href="/request_priority/">Edit Priority</a>
+    </li>
+</ul>
+
+</div>
+<a href="/">main page</a>
+
+{% endblock %}

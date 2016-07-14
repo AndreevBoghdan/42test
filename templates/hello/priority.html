@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}
+	Change priority
+{% endblock title %}
+{% block content %}
+<form method="POST" action="/request_priority/">
+    <table>
+        {% csrf_token %}
+        <tr>
+            <th>#</th>
+            <th>Priority</th>
+            <th>Path</th>
+            <th>Method</th>
+            <th>Time</th>
+            <th>Set priority</th>
+        </tr>
+        
+        {% for request, form in objects %}
+        <tr>
+            <td>{{ request.pk }}</td>
+            <td>{{ request.priority }}</td>
+            <td>{{ request.path }}</td>
+            <td>{{ request.meth }}</td>
+            <td>{{ request.date }}</td>
+            <td>
+                {% for choice in form.priority %}
+                    {{ choice }}
+                {% endfor %}
+                {{ form.id }}
+            </td>
+        </tr>
+        {% endfor %}
+       {{ formset.management_form }}
+    </table>
+    <input type="submit" value="Save" />
+</form>
+<div class="pagination">
+        <ul> 
+            {% if pages.has_previous %}
+                <li class="arrow"><a href="/request_priority/page/{{ pages.previous_page_number }}/">&laquo;</a></li>
+                {% else %}
+                    <li class="arrow unavaiable"><a href="">&laquo;</a></li>
+            {% endif %}
+                
+            {% for page in pages.paginator.page_range %}
+                    {% if page == pages.number %}
+                    <li class="current"><a href="/request_priority/page/{{ page }}/">{{ page }}</a></li>
+                    {% else %}
+                    <li ><a href="/request_priority/page/{{ page }}/">{{ page }}</a></li>
+                    {% endif %}
+            {% endfor %}
+
+            {% if pages.has_next %}
+                <li class="arrow"><a href="/request_priority/page/{{ pages.next_page_number }}/">&raquo;</a></li>
+            {% else %}
+                    <li class="arrow unavaiable"><a href="">&raquo;</a></li>
+            {% endif %}
+        </ul>
+</div>
+    <a href="/requests/">requests</a>
+    <a href="/">main page</a>
+{% endblock %}
+    
