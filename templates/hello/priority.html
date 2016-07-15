@@ -4,7 +4,7 @@
 	Change priority
 {% endblock title %}
 {% block content %}
-<form method="POST" action="/request_priority/">
+<form method="POST" action="{% url 'request_priority' %}">
     <table>
         {% csrf_token %}
         <tr>
@@ -58,7 +58,7 @@
             {% endif %}
         </ul>
 </div>
-    <a href="/requests/">requests</a>
+    <a href="{% url 'requests' %}">requests</a>
     <a href="/">main page</a>
 {% endblock %}
     

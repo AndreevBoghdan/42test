@@ -10,5 +10,6 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
     (r'^uploads/(?P<path>.*)$', 'django.views.static.serve',
                                 {'document_root': settings.MEDIA_ROOT}),
+    url(r'', include('social_auth.urls')),
 )
 urlpatterns += staticfiles_urlpatterns()

@@ -19,7 +19,7 @@
 		{% if person.photo %}
             <img src="{{ MEDIA_URL }}{{ person.photo }}" alt="Photo" />
         {% else %}	
-        	<img class='image' src="/static/images/default.png" alt="Photo" />
+        	<img class='image' src="{% static 'images/default.png' %}" alt="Photo" />
         {% endif %}
         </p>
 	</div>
@@ -38,17 +38,18 @@
 <ul class="links">
 {% if user.is_authenticated %}
     <li><a href="accounts/logout/">Logout</a></li>
-    <li><a href="/edit/">Edit</a>
+    <li><a href="{% url 'edit_person' %}">Edit</a>
     {% if user.is_staff %}
     	{% load edit_tag %}
     <a href="{% edit_link person %}">(admin)</a>
     {% endif %}
     </li>
 {% else %}
-    <li><a href="/accounts/login/">Login</a></li>
+    <li><a href="{% url 'login' %}">Login</a></li>
+    <li><a href="{% url 'socialauth_begin' 'github' %}">Log in via GitHub</a></li>
 {% endif %}
 </ul>
 </div>
-<a href="/requests/">requests</a>
+<a href="{% url 'requests' %}">requests</a>
 
 {% endblock %}

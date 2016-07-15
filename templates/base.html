@@ -17,7 +17,11 @@
 
     </head>
     <body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}">
-        <h1 id="title">Assignment</h1>
+        <h1 id="title">Assignment 
+        {% if user.is_authenticated %}
+        {{ user.username }}
+        {% endif%}
+        </h1>
         {% block content %}{% endblock content %}
     </body>
 </html>
