@@ -7,6 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns(
     '',
     url(r'^', include('apps.hello.urls')),
+    url(r'^cars/', include('apps.cars.urls')),
     url(r'^admin/', include(admin.site.urls)),
     (r'^uploads/(?P<path>.*)$', 'django.views.static.serve',
                                 {'document_root': settings.MEDIA_ROOT}),

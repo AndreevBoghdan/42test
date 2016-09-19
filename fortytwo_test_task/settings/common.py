@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'south',
     'apps.hello',
+    'apps.cars',
     'social_auth',
 )
 
