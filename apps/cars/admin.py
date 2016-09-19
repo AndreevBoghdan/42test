@@ -3,6 +3,7 @@ from cars.models import Car
 
 # Register your models here.
 
+
 class CarAdmin(admin.ModelAdmin):
     list_display = ('brand',
                     'model')
