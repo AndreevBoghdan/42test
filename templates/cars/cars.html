@@ -1,0 +1,74 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Cars</title>
+
+        <meta http-equiv="X-UA-Compatible" content="chrome=IE7" />
+
+        <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <link rel="stylesheet" href="{% static 'css/cars/screen.css' %}" media="screen, projection"/>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js"></script>
+        
+
+
+
+    </head>
+    <body id="body" class="">
+
+    <div id="cars">
+        {% for car in cars %}
+        <div class="illustrations">
+            <a href="#" onclick='$("#car-{{ car.pk }}").dialog( "open");'><img src="{% static 'images/default.png' %}" width="640" height="480" realsrc="{{ MEDIA_URL }}{{ car.main_photo }}"></a>
+
+        </div>
+        {% if forloop.counter in br %}
+            <br />
+        {% endif %}
+        {% endfor %}
+    </div>
+    <script>$('#cars').draggable();</script>
+    </body>
+
+  <script>
+    function isVisible(elem) {
+
+      var coords = elem.getBoundingClientRect();
+
+      var windowHeight = document.documentElement.clientHeight;
+
+
+      var topVisible = coords.top > 0 && coords.top < windowHeight;
+      var bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
+
+      return topVisible || bottomVisible;
+    }
+
+    function showVisible() {
+      var imgs = document.getElementsByTagName('img');
+      for (var i = 0; i < imgs.length; i++) {
+
+        var img = imgs[i];
+
+        var realsrc = img.getAttribute('realsrc');
+        if (!realsrc) continue;
+
+        if (isVisible(img)) {
+          img.src = realsrc;
+          img.setAttribute('realsrc', '');
+        }
+      }
+
+    }
+
+    window.document.getElementById("body").style.width = {{ count }}
+    window.onscroll = showVisible;
+    window.onmouseup = showVisible;
+    showVisible();
+  </script>
+</html>
