@@ -48,3 +48,7 @@ body {
 	-o-user-select: none;
 	user-select: none;
 }
+
+.ui-draggable, .ui-droppable {
+	background-position: top;
+}

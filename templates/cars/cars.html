@@ -11,27 +11,85 @@
         <meta name="apple-mobile-web-app-capable" content="yes"/>
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <link rel="stylesheet" href="{% static 'css/cars/screen.css' %}" media="screen, projection"/>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js"></script>
-        
 
 
-
+    <script type="text/javascript">
+        $(function() {
+            var width = $("#first").attr("width");
+            var height = $("#first").attr("height");
+            z = width/height;
+            $("#slider").slider({
+            orientation: "horizontal",
+            min: 240,
+            max: 640,
+            value: width,
+            slide: function(event, ui) {
+            y = Math.round(ui.value/z);
+            $("#amount").val(ui.value);
+            $("#amount2").val(y);
+            $('.images').width(ui.value);
+            $('.images').height(y);
+            }
+            });
+            $("#amount").attr('value',width);
+            $("#amount2").attr('value',height);
+            });
+    </script>
+  
     </head>
     <body id="body" class="">
+    <label for="amount">Width:</label>
+    <input type="text" id="amount" value="" style="border:0; width:30px; color:#f6931f; font-weight:bold;" />
+    <label for="amount2">Height:</label>
+    <input type="text" id="amount2" value="" style="border:0; width:30px; color:#f6931f; font-weight:bold;" />
+
+    <div id="slider" style="height:6px; width:220px; "></div>
 
     <div id="cars">
         {% for car in cars %}
-        <div class="illustrations">
-            <a href="#" onclick='$("#car-{{ car.pk }}").dialog( "open");'><img src="{% static 'images/default.png' %}" width="640" height="480" realsrc="{{ MEDIA_URL }}{{ car.main_photo }}"></a>
+            <script>
+                $( function() {
+                    $( "#dialog-{{ car.pk }}" ).dialog({
+                        autoOpen: false,
+                        show: {
+                            effect: "clip",
+                            duration: 1000
+                        },
+                        hide: {
+                            effect: "clip",
+                            duration: 1000
+                        }
+                    });
 
+                } );
+            </script>
+        {% if forloop.counter == 1 %}
+
+        <div class="illustrations">
+            <a href="#" ondblclick='$("#dialog-{{ car.pk }}").dialog( "open");'><img id='first' class='images'src="{% static 'images/default.png' %}" width="640" height="480" realsrc="{{ MEDIA_URL }}{{ car.main_photo }}"></a>
+
+        </div>
+        {% else %}
+
+        <div class="illustrations">
+            <a href="#" ondblclick='$("#dialog-{{ car.pk }}").dialog( "open");'><img class='images'src="{% static 'images/default.png' %}" width="640" height="480" realsrc="{{ MEDIA_URL }}{{ car.main_photo }}"></a>
+
+        </div>
+        {% endif %}
+
+        <div id="dialog-{{ car.pk }}" title="Basic dialog">
+            <p>information</p>
         </div>
         {% if forloop.counter in br %}
             <br />
         {% endif %}
         {% endfor %}
     </div>
+
     <script>$('#cars').draggable();</script>
     </body>
 
