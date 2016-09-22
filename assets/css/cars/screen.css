@@ -15,6 +15,10 @@ body {
     white-space: nowrap;
 }
 
+#cars {
+	position: absolute;
+}
+
 .illustrations {
 	display: inline;
 }
@@ -47,4 +51,46 @@ body {
 	-moz-user-select: none;
 	-o-user-select: none;
 	user-select: none;
+}
+
+.ui-draggable, .ui-droppable {
+	background-position: top;
+}
+
+
+
+.info {
+    width: 48%;
+	min-width: 300px;
+	display: inline-block;
+	float:right;
+	overflow: hidden;
+
+}
+
+.ui-dialog-content .ui-widget-content {
+	background-color: whitesmoke;
+}
+
+.details {
+    width: 80%;
+    margin: 0 auto;
+	border: 5px double #000;
+}
+
+.details td {
+    padding: 5px; 
+    border: 1px solid #000; 
+}
+
+
+.swiper-container {
+    width: 49%;
+    height: 365px;
+    float: left;
+
+}
+.swiper-slide {
+    font-size: 18px;
+    background: #fff;
 }

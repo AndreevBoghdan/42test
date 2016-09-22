@@ -33,7 +33,7 @@ class Car(models.Model):
     model = models.CharField(max_length=15)
     used = models.BooleanField(blank=True, default=False)
     demonstration = models.BooleanField(blank=True, default=False)
-    ez = models.DateTimeField(blank=True, null=True)
+    ez = models.DateField(blank=True, null=True)
     mileage = models.IntegerField(default=0)
     power = models.PositiveIntegerField(blank=True, null=True)
     price = models.PositiveIntegerField(blank=True, null=True)
@@ -57,13 +57,7 @@ class Car(models.Model):
     photo_location = models.ImageField(upload_to='photo',
                                        null=True,
                                        blank=True)
-    photo_monitour = models.ImageField(upload_to='photo',
-                                       null=True,
-                                       blank=True)
     photo_info = models.ImageField(upload_to='photo', null=True, blank=True)
     photo_shop = models.ImageField(upload_to='photo', null=True, blank=True)
-    photo_monitour = models.ImageField(upload_to='photo',
-                                       null=True,
-                                       blank=True)
     photo_advertisement = models.ImageField(upload_to='photo',
                                             null=True, blank=True)
