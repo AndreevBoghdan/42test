@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'fortytwo_test_task.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': '42_test',
-        'USER': 'root',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'database.sqlite3',
+        'USER': '',
         'PASSWORD': '',
         'HOST': '',
         'PORT': '',
