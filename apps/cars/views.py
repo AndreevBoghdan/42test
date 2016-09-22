@@ -6,15 +6,12 @@ from cars.models import Car
 
 
 def main(request):
-	br = []
-	for i in range(1,Car.objects.count()+1):
-		if i % 4 == 0 :
-			br.append(i)
-	return render(request,
-                  'cars/cars.html',
-                  {'cars': Car.objects.all(),
-                  'br': br}
-                  )
+    br = []
+    for i in range(1, Car.objects.count()+1):
+        if i % 4 == 0:
+            br.append(i)
+    return render(request, 'cars/cars.html', {'cars': Car.objects.all(),
+                  'br': br})
 
 
 def superuser(request):
