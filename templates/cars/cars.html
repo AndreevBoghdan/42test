@@ -11,10 +11,12 @@
         <meta name="apple-mobile-web-app-capable" content="yes"/>
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <link rel="stylesheet" href="{% static 'css/cars/screen.css' %}" media="screen, projection"/>
+        <link rel="stylesheet" href="{% static 'css/cars/swiper.min.css' %}" media="screen, projection"/>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js"></script>
+        <script src="{% static 'js/jquery.carouFredSel-6.0.4-packed.js' %}"></script>
 
 
     <script type="text/javascript">
@@ -47,7 +49,7 @@
     <label for="amount2">Height:</label>
     <input type="text" id="amount2" value="" style="border:0; width:30px; color:#f6931f; font-weight:bold;" />
 
-    <div id="slider" style="height:6px; width:220px; "></div>
+    <div id="slider" style="height:6px; width:220px; margin: 10px; "></div>
 
     <div id="cars">
         {% for car in cars %}
@@ -55,6 +57,8 @@
                 $( function() {
                     $( "#dialog-{{ car.pk }}" ).dialog({
                         autoOpen: false,
+                        height: $(window).height()*0.85,
+                        width: $(window).width()*0.85,
                         show: {
                             effect: "clip",
                             duration: 1000
@@ -64,25 +68,88 @@
                             duration: 1000
                         }
                     });
+                    $(".ui-dialog-content").css({'background-color':'whitesmoke'});
 
                 } );
             </script>
         {% if forloop.counter == 1 %}
-
+        <br />
         <div class="illustrations">
-            <a href="#" ondblclick='$("#dialog-{{ car.pk }}").dialog( "open");'><img id='first' class='images'src="{% static 'images/default.png' %}" width="640" height="480" realsrc="{{ MEDIA_URL }}{{ car.main_photo }}"></a>
+            <img id='first' ondblclick='$("#dialog-{{ car.pk }}").dialog( "open");' class='images'src="{% static 'images/default.png' %}" width="640" height="480" realsrc="{{ MEDIA_URL }}{{ car.main_photo }}">
 
         </div>
         {% else %}
 
         <div class="illustrations">
-            <a href="#" ondblclick='$("#dialog-{{ car.pk }}").dialog( "open");'><img class='images'src="{% static 'images/default.png' %}" width="640" height="480" realsrc="{{ MEDIA_URL }}{{ car.main_photo }}"></a>
+        <img ondblclick='$("#dialog-{{ car.pk }}").dialog( "open");'class='images'src="{% static 'images/default.png' %}" width="640" height="480" realsrc="{{ MEDIA_URL }}{{ car.main_photo }}">
 
         </div>
         {% endif %}
 
-        <div id="dialog-{{ car.pk }}" title="Basic dialog">
-            <p>information</p>
+        <div id="dialog-{{ car.pk }}" title="{{ car.get_brand_display }} {{ car.model }}" width="85vw">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    {% if car.main_photo %}
+                    <div class="swiper-slide"><img width="480" height='320' src="{{ MEDIA_URL }}{{ car.main_photo }}" alt=""></div>
+                    {% endif %}
+                    {% if car.photo_back %}
+                    <div class="swiper-slide"><img width="480" height='320'  src="{{ MEDIA_URL }}{{ car.photo_back }}" alt=""></div>
+                    {% endif %}
+                    {% if car.photo_wheel %}
+                    <div class="swiper-slide"><img width="480" height='320' src="{{ MEDIA_URL }}{{ car.photo_wheel }}" alt=""></div>
+                    {% endif %}
+                    {% if car.photo_left %}
+                    <div class="swiper-slide"><img width="480" height='320' src="{{ MEDIA_URL }}{{ car.photo_left }}" alt=""></div>
+                    {% endif %}
+                    {% if car.photo_right %}
+                    <div class="swiper-slide"><img width="480" height='320' src="{{ MEDIA_URL }}{{ car.photo_right }}" alt=""></div>
+                    {% endif %}
+                    {% if car.photo_back_sit %}
+                    <div class="swiper-slide"><img width="480" height='320' src="{{ MEDIA_URL }}{{ car.photo_back_sit }}" alt=""></div>
+                    {% endif %}
+                    {% if car.photo_head %}
+                    <div class="swiper-slide"><img width="480" height='320' src="{{ MEDIA_URL }}{{ car.photo_head }}" alt=""></div>
+                    {% endif %}
+                    {% if car.photo_rudder %}
+                    <div class="swiper-slide"><img width="480" height='320' src="{{ MEDIA_URL }}{{ car.photo_rudder }}" alt=""></div>
+                    {% endif %}
+                    {% if car.photo_player %}
+                    <div class="swiper-slide"><img width="480" height='320' src="{{ MEDIA_URL }}{{ car.photo_player }}" alt=""></div>
+                    {% endif %}
+                    {% if car.photo_monitour %}
+                    <div class="swiper-slide"><img width="480" height='320' src="{{ MEDIA_URL }}{{ car.photo_monitour }}" alt=""></div>
+                    {% endif %}
+                    {% if car.photo_door %}
+                    <div class="swiper-slide"><img width="480" height='320' src="{{ MEDIA_URL }}{{ car.photo_door }}" alt=""></div>
+                    {% endif %}
+                    {% if car.photo_location %}
+                    <div class="swiper-slide"><img width="480" height='320' src="{{ MEDIA_URL }}{{ car.photo_location }}" alt=""></div>
+                    {% endif %}
+                    {% if car.photo_info %}
+                    <div class="swiper-slide"><img width="480" height='320' src="{{ MEDIA_URL }}{{ car.photo_info }}" alt=""></div>
+                    {% endif %}
+                    {% if car.photo_shop %}
+                    <div class="swiper-slide"><img width="480" height='320' src="{{ MEDIA_URL }}{{ car.photo_shop }}" alt=""></div>
+                    {% endif %}
+                    {% if car.photo_advertisement %}
+                    <div class="swiper-slide"><img width="480" height='320' src="{{ MEDIA_URL }}{{ car.photo_advertisement }}" alt=""></div>
+                    {% endif %}
+
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <div class="info">
+            <table class='details'>
+                <tr><td>Construction</td><td>{{ car.construction }}</td></tr>
+                <tr><td>EZ</td><td>{{ car.ez }}</td></tr>
+                <tr><td>Mileage</td><td>{{ car.mileage }}</td></tr>
+                <tr><td>Power</td><td>{{ car.power  }}</td></tr>
+                <tr><td>Transmission</td><td>{{ car.transmission }}</td></tr>
+                <tr><td>Color</td><td>{{ car.color }}</td></tr>
+                <tr><td>Construction</td><td>{{ car.construction }}</td></tr>
+                <tr><td>Construction</td><td>{{ car.construction }}</td></tr>
+            </table>
+            </div>
         </div>
         {% if forloop.counter in br %}
             <br />
@@ -90,7 +157,7 @@
         {% endfor %}
     </div>
 
-    <script>$('#cars').draggable();</script>
+    <script src="{% static 'js/drag.js' %}"></script>
     </body>
 
   <script>
@@ -99,12 +166,29 @@
       var coords = elem.getBoundingClientRect();
 
       var windowHeight = document.documentElement.clientHeight;
+      var windowWidth = document.documentElement.clientWidth;
 
 
       var topVisible = coords.top > 0 && coords.top < windowHeight;
       var bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
+      var leftVisible = coords.left > 0 && coords.left < windowWidth;
+      var rightVisible = coords.left > 0 && coords.left < windowWidth;
 
-      return topVisible || bottomVisible;
+      return topVisible && leftVisible || bottomVisible && rightVisible;
+    }
+
+    function inWindow(s){
+      var scrollTop = $(window).scrollTop();
+      var windowHeight = $(window).height();
+      var currentEls = $(s);
+      var result = [];
+      currentEls.each(function(){
+        var el = $(this);
+        var offset = el.offset();
+        if(scrollTop <= offset.top && (el.height() + offset.top) < (scrollTop + windowHeight))
+          result.push(this);
+      });
+      return $(result);
     }
 
     function showVisible() {
@@ -127,6 +211,19 @@
     window.document.getElementById("body").style.width = {{ count }}
     window.onscroll = showVisible;
     window.onmouseup = showVisible;
-    showVisible();
+    $( window.document ).ready(function() {
+       showVisible();
+
+    });
   </script>
+  <script src="{% static 'js/swiper.min.js' %}"></script>
+
+  <script>
+  var swiper = new Swiper('.swiper-container', {
+      pagination: '.swiper-pagination',
+      paginationClickable: true,
+  });
+
+  </script>
+
 </html>
