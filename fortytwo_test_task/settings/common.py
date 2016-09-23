@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'fortytwo_test_task.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '42_test',
+        'NAME': 'AndreevB$42_test',
         'USER': 'AndreevB',
         'PASSWORD': 'lol9379992',
         'HOST': 'AndreevB.mysql.pythonanywhere-services.com',
