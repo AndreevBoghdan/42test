@@ -25,11 +25,11 @@ sys.path.append(os.path.join(BASE_DIR, 'apps'))
 SECRET_KEY = 'x=c0_e(onjn^80irdy2c221#)2t^qi&6yrc$31i(&ti*_jf3l8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['AndreevB.pythonanywhere.com']
 
 
 # Application definition
@@ -77,12 +77,11 @@ WSGI_APPLICATION = 'fortytwo_test_task.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'database.sqlite3',
-        'USER': '',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': '42_test',
+        'USER': 'root',
         'PASSWORD': '',
         'HOST': '',
         'PORT': '',
