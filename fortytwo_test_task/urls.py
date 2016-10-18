@@ -12,5 +12,6 @@ urlpatterns = patterns(
     (r'^uploads/(?P<path>.*)$', 'django.views.static.serve',
                                 {'document_root': settings.MEDIA_ROOT}),
     url(r'', include('social_auth.urls')),
+    url(r'^ytube/', include('apps.ytget.urls')),
 )
 urlpatterns += staticfiles_urlpatterns()
