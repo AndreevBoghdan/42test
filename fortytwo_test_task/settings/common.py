@@ -25,7 +25,7 @@ sys.path.append(os.path.join(BASE_DIR, 'apps'))
 SECRET_KEY = 'x=c0_e(onjn^80irdy2c221#)2t^qi&6yrc$31i(&ti*_jf3l8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = True
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'south',
     'apps.hello',
+    'apps.ytget',
     'apps.cars',
     'social_auth',
 )
