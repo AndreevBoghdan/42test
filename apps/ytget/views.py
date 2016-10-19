@@ -42,12 +42,15 @@ https://developers.google.com/api-client-library/python/guide/aaa_client_secrets
 
 clpath = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                    CLIENT_SECRETS_FILE))
+
+storagepath = os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                   "oauth2.json"))
 # Authorize the request and store authorization credentials.
 def get_authenticated_service():
   flow = flow_from_clientsecrets(clpath, scope=YOUTUBE_READ_WRITE_SCOPE,
     message=MISSING_CLIENT_SECRETS_MESSAGE)
 
-  storage = Storage("oauth2.json")
+  storage = Storage(storagepath)
   credentials = storage.get()
 
   if credentials is None or credentials.invalid:
