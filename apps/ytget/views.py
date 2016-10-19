@@ -25,7 +25,7 @@ YOUTUBE_API_VERSION = "v3"
 
 # This variable defines a message to display if the CLIENT_SECRETS_FILE is
 # missing.
-MISSING_CLIENT_SECRETS_MESSAGE = ''
+MISSING_CLIENT_SECRETS_MESSAGE = 'something wrong happened'
 
 clpath = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                    CLIENT_SECRETS_FILE))
