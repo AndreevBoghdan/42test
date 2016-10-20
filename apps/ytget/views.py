@@ -88,11 +88,11 @@ def finish_youtube_login(request):
 
     try:
         flow = request.session['flow']
-    except KeyError:
+    except Exception:
         return redirect(reverse('start_youtube_login'))
     try:
         credentials = flow.step2_exchange(code)
-    except ValueError:
+    except Exception:
         return redirect(reverse('start_youtube_login'))
 
     youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY,
