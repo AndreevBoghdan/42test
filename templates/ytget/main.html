@@ -22,12 +22,14 @@
         <div class="content">
 
 	<div id="left">
+    {% if user.is_authenticated %}
 	<p>Channel title:</p>
 	<p>{{ name }}</p>
 	<p>Total views:</p>
 	<p>{{ viewCount }}</p>
 	<p>Total followers: </p>
 	<p>{{ followers }}</p>
+    {% endif%}
 
 	</div>
         
@@ -46,9 +48,9 @@
 	</div>
 
 <ul class="links">
-
-
-
+    {% if not user.is_authenticated %}
+<li><a href="{% url 'start_youtube_login' %}">Authenticate request</a></li>
+{% endif %}
 </ul>
 </div>
     </body>

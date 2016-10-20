@@ -41,7 +41,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'south',
     'apps.hello',
     'apps.ytget',
     'apps.cars',
@@ -88,7 +87,6 @@ DATABASES = {
         'PORT': '',
     }
 }
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
@@ -154,6 +152,7 @@ SOUTH_TESTS_MIGRATE = False
 
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.contrib.github.GithubBackend',
+    'social_auth.backends.google.GoogleOAuth2Backend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -169,7 +168,15 @@ SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.user.update_user_details'
 )
 
+
+SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
+
 GITHUB_APP_ID = '7892897ccc312e76ca79'
 GITHUB_API_SECRET = 'd70ae447c9bc352c263f1d9dfaa95cbe3969d39c'
 
-LOGIN_REDIRECT_URL = '/'
+GOOGLE_OAUTH2_CLIENT_ID = '870179671474-3mpg2uo9gjmejrm89mvfvii3etuef80m.apps.googleusercontent.com'
+GOOGLE_OAUTH2_CLIENT_SECRET = 'c1RkPASWf5bnb2HMKMv6khni'
+
+LOGIN_REDIRECT_URL = '/ytube/'
+
+GOOGLE_OAUTH2_USE_UNIQUE_USER_ID = True

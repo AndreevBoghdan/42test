@@ -1,7 +1,9 @@
 import httplib2
 import os
 import sys
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.core.urlresolvers import reverse
+from django.core.management import execute_from_command_line
 # Create your views here.
 
 
@@ -12,8 +14,9 @@ from oauth2client.file import Storage
 from oauth2client.tools import argparser, run_flow
 
 from oauth2client.file import Storage
+from oauth2client.contrib.django_util.views import oauth2_authorize
 
-from apiclient.discovery import build
+
 
 CLIENT_SECRETS_FILE = "client_secrets.json"
 
@@ -22,35 +25,22 @@ CLIENT_SECRETS_FILE = "client_secrets.json"
 YOUTUBE_READ_WRITE_SCOPE = "https://www.googleapis.com/auth/youtube"
 YOUTUBE_API_SERVICE_NAME = "youtube"
 YOUTUBE_API_VERSION = "v3"
+DEVELOPER_KEY = 'AIzaSyC5yCDPrBrmWt1pM_Xsuj0514vRKqPkJoQ'
 
 # This variable defines a message to display if the CLIENT_SECRETS_FILE is
 # missing.
-MISSING_CLIENT_SECRETS_MESSAGE = """
-WARNING: Please configure OAuth 2.0
-
-To make this sample run you will need to populate the client_secrets.json file
-found at:
-   %s
-with information from the APIs Console
-https://console.developers.google.com
-
-For more information about the client_secrets.json file format, please visit:
-https://developers.google.com/api-client-library/python/guide/aaa_client_secrets
-""" % os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                   CLIENT_SECRETS_FILE))
-
+MISSING_CLIENT_SECRETS_MESSAGE = ''
 
 clpath = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                    CLIENT_SECRETS_FILE))
-
-storagepath = os.path.abspath(os.path.join(os.path.dirname(__file__),
+storpath = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                    "oauth2.json"))
 # Authorize the request and store authorization credentials.
 def get_authenticated_service():
   flow = flow_from_clientsecrets(clpath, scope=YOUTUBE_READ_WRITE_SCOPE,
     message=MISSING_CLIENT_SECRETS_MESSAGE)
 
-  storage = Storage(storagepath)
+  storage = Storage(storpath)
   credentials = storage.get()
 
   if credentials is None or credentials.invalid:
@@ -85,9 +75,28 @@ def get_video_info(youtube, id):
 
     return results
 
-def main(request):
+def start_youtube_login(request):
+    flow = flow_from_clientsecrets(clpath, scope=YOUTUBE_READ_WRITE_SCOPE,
+      message=MISSING_CLIENT_SECRETS_MESSAGE, redirect_uri='http://127.0.0.1:8000/ytube/')
+    auth_uri = flow.step1_get_authorize_url()
+    request.session['flow'] = flow
+    return redirect(auth_uri)
 
-    youtube = get_authenticated_service()
+
+def finish_youtube_login(request):
+    code = request.GET.get('code')
+
+    try:
+        flow = request.session['flow']
+    except KeyError:
+        return redirect(reverse('start_youtube_login'))
+    try:
+        credentials = flow.step2_exchange(code)
+    except ValueError:
+        return redirect(reverse('start_youtube_login'))
+
+    youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY,
+        http=credentials.authorize(httplib2.Http()))
     resp = get_channel(youtube)
     viewCount = resp['items'][0]['statistics']['viewCount']
     subscriberCount = resp['items'][0]['statistics']['subscriberCount']
@@ -95,10 +104,11 @@ def main(request):
 
     res = get_channel_videos(youtube)
 
+
     video_ids = []
     for elem in res['items']:
-    	video_response = get_video_info(youtube, elem['id']['videoId'])
-    	video_ids.append({'id':elem['id']['videoId'], 'count': video_response['items'][0]['statistics']['viewCount']})
+      video_response = get_video_info(youtube, elem['id']['videoId'])
+      video_ids.append({'id':elem['id']['videoId'], 'count': video_response['items'][0]['statistics']['viewCount']})
 
 
     return render(request,
@@ -109,13 +119,3 @@ def main(request):
                   'name': name,
                   'viewCount': viewCount}
                   )
-
-
-
-
-
-
-
-
-
-
