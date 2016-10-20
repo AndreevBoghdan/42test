@@ -77,7 +77,7 @@ def get_video_info(youtube, id):
 
 def start_youtube_login(request):
     flow = flow_from_clientsecrets(clpath, scope=YOUTUBE_READ_WRITE_SCOPE,
-      message=MISSING_CLIENT_SECRETS_MESSAGE, redirect_uri='http://127.0.0.1:8000/ytube/')
+      message=MISSING_CLIENT_SECRETS_MESSAGE, redirect_uri='http://andreevb.pythonanywhere.com/ytube/')
     auth_uri = flow.step1_get_authorize_url()
     request.session['flow'] = flow
     return redirect(auth_uri)
